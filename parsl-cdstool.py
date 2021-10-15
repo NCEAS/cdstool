@@ -16,6 +16,8 @@ import os.path
 import cdsapi
 import netCDF4
 
+import parsl
+from parsl import python_app
 from parsl.config import Config
 from parsl.executors.threads import ThreadPoolExecutor
 
@@ -27,12 +29,15 @@ def download_dataset( ds_name, dir_name, start_year, end_year, area_lat_long, va
         for var_name in variables:
             #download_var_for_year( ds_name, dir_name, year, area_lat_long, var_name)
             print_var_for_year( ds_name, dir_name, year, area_lat_long, var_name, force_download)
+            print(f'Submitted {var_name} for {year}: {ds_name}')
 
-@parsl_app
+@python_app
 def print_var_for_year(ds_name, dir_name, year, area_lat_long, var_name, force_download=False):
+    import time
+    time.sleep(5)
     print(f'Processing {var_name} for {year}: {ds_name}')
 
-@parsl_app
+@python_app
 def download_var_for_year(ds_name, dir_name, year, area_lat_long, var_name, force_download=False):
     import math
     import datetime
@@ -87,6 +92,8 @@ def main():
             ThreadPoolExecutor( max_threads=3, label='local_threads') 
         ]
     )
+    parsl.clear()
+    parsl.load(local_threads)
 
     app_version = "0.94"
     force_download = False;
