@@ -37,8 +37,8 @@ def download_dataset( ds_name, dir_name, start_year, end_year, area_lat_long, va
     # download year, variable for entire globe
     for year in reversed( years ):
         for var_name in variables:
-            #download_var_for_year( ds_name, dir_name, year, area_lat_long, var_name, force_download)
-            print_var_for_year( ds_name, dir_name, year, area_lat_long, var_name, force_download)
+            download_var_for_year( ds_name, dir_name, year, area_lat_long, var_name, force_download)
+            #print_var_for_year( ds_name, dir_name, year, area_lat_long, var_name, force_download)
             print(f'Submitted {var_name} for {year}: {ds_name}')
 
 @python_app
