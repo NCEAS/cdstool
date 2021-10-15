@@ -23,22 +23,43 @@ from parsl.executors.threads import ThreadPoolExecutor
 
 # download era5 or era5 back extention data to netcdf files
 def download_dataset( ds_name, dir_name, start_year, end_year, area_lat_long, variables, force_download=False ):
+    '''
+    Download a multi-year dataset.
+    :param ds_name: The dataset name to be downloaded from CDS
+    :param dir_name: name of the directory to save downloaded files for the dataset
+    :param start_year: the first year of the range for downloads
+    :param end_year: the last year of the range for downloads
+    :param area_lat_long: The area to be downloaded, or None for global
+    :param variables: List of variables to be downloaded
+    :param force_download: Download file even if it already exists locally
+    '''
     years = list( range( start_year, end_year + 1 ) )
     # download year, variable for entire globe
     for year in reversed( years ):
         for var_name in variables:
-            #download_var_for_year( ds_name, dir_name, year, area_lat_long, var_name)
+            #download_var_for_year( ds_name, dir_name, year, area_lat_long, var_name, force_download)
             print_var_for_year( ds_name, dir_name, year, area_lat_long, var_name, force_download)
             print(f'Submitted {var_name} for {year}: {ds_name}')
 
 @python_app
 def print_var_for_year(ds_name, dir_name, year, area_lat_long, var_name, force_download=False):
+    '''Test method for debugging parsl operation.'''
     import time
     time.sleep(5)
     print(f'Processing {var_name} for {year}: {ds_name}')
 
 @python_app
 def download_var_for_year(ds_name, dir_name, year, area_lat_long, var_name, force_download=False):
+    '''
+    Download a single year dataset for a single variable.
+    :param ds_name: The dataset name to be downloaded from CDS
+    :param dir_name: name of the directory to save downloaded files for the dataset
+    :param year: the year to be downloaded
+    :param area_lat_long: The area to be downloaded, or None for global
+    :param var_name: The name of the variable to be downloaded
+    :param force_download: Download file even if it already exists locally
+    '''
+
     import math
     import datetime
     import os.path
@@ -86,6 +107,8 @@ def download_var_for_year(ds_name, dir_name, year, area_lat_long, var_name, forc
         os.rename(tempfullname, fullname)
 
 def main():
+    '''Main program to download data from Copernicus.'''
+
     # Configure parsl to use a local thread pool
     local_threads = Config(
         executors=[ 
@@ -140,4 +163,7 @@ def main():
                         1979, current_time.year,
                         area0, variables, force_download )
 
-main()
+
+if __name__ == "__main__":
+    main()
+
