@@ -112,7 +112,7 @@ def main():
     # Configure parsl to use a local thread pool
     local_threads = Config(
         executors=[ 
-            ThreadPoolExecutor( max_threads=3, label='local_threads') 
+            ThreadPoolExecutor( max_threads=5, label='local_threads') 
         ]
     )
     parsl.clear()
