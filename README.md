@@ -18,3 +18,10 @@ CDS ERA5 data are broken into two products:
 - 1950-1978: ERA 5 Back extension (28 years, at about 156GB per year, totalling around 4,368 GB)
 - 1979-2021: ERA 5 (42 years, at about 136GB per year, totlling aroung 5,712 GB)
 
+## Checksums
+
+I also generated checksums for all downloaded files usinfg openssl and recorded those in `cds-checksums.csv` using a command like this:
+
+```sh
+fn="cds_era5_backext/1953/global-1953-2m_dewpoint_temperature.nc" openssl dgst -sha256 $fn | awk -F'[()=]' '{print $2 ",",  $1 "," $4}' >> cds-checksums.csv
+```
