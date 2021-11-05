@@ -1,8 +1,12 @@
-# cdstool
+# HWITW: How Weird is the Weather?
 
 - Project: How Weird is the Weather?
 - Authors: John McInnes <jamcinnes2@gmail.com>, Matt Jones <jones@nceas.ucsb.edu>
 - License: Apache License 2.0
+
+This is the general repository for managing files from How Weird is the Weather. It includes tools for downloading ERA5 reanalysis data from the Copernicus Data Service, and tools for statistical summarization of that data.
+
+## Downloading CDS data
 
 Download data from the Copernicus Climate Data Service (CDS)
 
