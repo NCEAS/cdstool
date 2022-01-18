@@ -1,5 +1,5 @@
-# utility to process downloaded netcdf files into processed output data
-# HWITW (C) 2021
+# utility to process downloaded netcdf files into output data
+# HWITW (C) 2021, 2022
 #
 import math
 import copy
