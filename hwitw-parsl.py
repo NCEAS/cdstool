@@ -3,27 +3,20 @@
 import math
 import datetime
 import os.path
-import netCDF4
 import time
 
 import parsl
 from parsl import python_app
-from parsl.config import Config
-from parsl.executors.threads import ThreadPoolExecutor
 
 def main():
-    '''Main program to execute all stats calculations by year and latitude.'''
+    '''Main program to execute all stats.'''
+
+    #from parslexec import local_exec
+    #from parslexec import htex_local
+    from parslexec import htex_kube
+    parsl.load(htex_kube)
+
     size = 5
-
-    # Configure parsl to use a local thread pool
-    local_threads = Config(
-        executors=[ 
-            ThreadPoolExecutor( max_threads=10, label='local_threads') 
-        ]
-    )
-    parsl.clear()
-    parsl.load(local_threads)
-
     stat_results = []
     for year in range(size):
         for lat in range(size):
