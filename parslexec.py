@@ -32,7 +32,7 @@ htex_kube = Config(
         HighThroughputExecutor(
             label='kube-htex',
             cores_per_worker=1,
-            max_workers=1,
+            #max_workers=1,
             worker_logdir_root='./logs',
             # Address for the pod worker to connect back
             address=address_by_route(),
@@ -46,13 +46,14 @@ htex_kube = Config(
                 # Command to be run upon pod start, such as:
                 # 'module load Anaconda; source activate parsl_env'.
                 # or 'pip install parsl'
-                worker_init='pwd',
+                #worker_init='echo "Worker started..."; lf=`find . -name \'manager.log\'` tail -n+1 -f ${lf}',
+                worker_init='echo "Worker started..."',
 
                 # The secret key to download the image
                 #secret="YOUR_KUBE_SECRET",
 
                 # Should follow the Kubernetes naming rules
-                pod_name='hwitw-pod',
+                pod_name='hwitw',
 
                 nodes_per_block=1,
                 init_blocks=1,

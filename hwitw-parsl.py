@@ -12,7 +12,6 @@ def main():
     '''Main program to execute all stats.'''
 
     #from parslexec import local_exec
-    #from parslexec import htex_local
     from parslexec import htex_kube
     parsl.load(htex_kube)
 
