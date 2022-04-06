@@ -32,16 +32,17 @@ htex_kube = Config(
         HighThroughputExecutor(
             label='kube-htex',
             cores_per_worker=1,
-            #max_workers=1,
-            worker_logdir_root='./logs',
+            max_workers=2,
+            worker_logdir_root='/',
             # Address for the pod worker to connect back
             address=address_by_route(),
+            #address='glacier.local',
             worker_debug=True,
             provider=KubernetesProvider(
                 namespace="test",
 
                 # Docker image url to use for pods
-                image='hwitw:0.2',
+                image='mbjones/python3-parsl:0.2',
 
                 # Command to be run upon pod start, such as:
                 # 'module load Anaconda; source activate parsl_env'.
@@ -53,14 +54,14 @@ htex_kube = Config(
                 #secret="YOUR_KUBE_SECRET",
 
                 # Should follow the Kubernetes naming rules
-                pod_name='hwitw',
+                pod_name='parsl-worker',
 
                 nodes_per_block=1,
-                init_blocks=1,
-                # Maximum number of pods to scale up
-                max_blocks=3,
+                init_blocks=2,
+                min_blocks=1,
+               # Maximum number of pods to scale up
+                max_blocks=4,
             ),
         ),
     ]
 )
-

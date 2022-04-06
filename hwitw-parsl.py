@@ -11,8 +11,10 @@ from parsl import python_app
 def main():
     '''Main program to execute all stats.'''
 
+    parsl.set_stream_logger()
     #from parslexec import local_exec
     from parslexec import htex_kube
+    #parsl.load(local_exec)
     parsl.load(htex_kube)
 
     size = 5
